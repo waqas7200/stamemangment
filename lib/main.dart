@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/get_navigation.dart';
+import 'package:statemanagment/view/source/home_screen/container_color/container_color_change.dart';
 import 'package:statemanagment/view/source/home_screen/home_screen.dart';
 import 'package:statemanagment/view/source/home_screen/password/hide_and_seak.dart';
+import 'package:statemanagment/view/source/home_screen/switchButton.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,7 +25,10 @@ class MyApp extends StatelessWidget {
         )
       )
     ),
-    home: HideAndSeak()
+    home: ContainerColorChange()
+
+    ///Switchbutton()
+    //HideAndSeak()
     //HomeScreen()
     );
   }
