@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:statemanagment/view/source/home_screen/container_color/container_color_change.dart';
@@ -5,8 +6,14 @@ import 'package:statemanagment/view/source/home_screen/home_screen.dart';
 import 'package:statemanagment/view/source/home_screen/password/hide_and_seak.dart';
 import 'package:statemanagment/view/source/home_screen/spinkit/Spinkit.dart';
 import 'package:statemanagment/view/source/home_screen/switchButton.dart';
+import 'package:statemanagment/view/source/routes/routes_screen.dart';
 
-void main() {
+import 'firebase_options.dart';
+
+void main()async {
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -26,11 +33,12 @@ class MyApp extends StatelessWidget {
         )
       )
     ),
-    home:
+  initialRoute: AppsRoutes.splashScreen,
+    getPages:AppsRoutes.routes
     //Spinkit()
     //ContainerColorChange()
-    Spinkit()
-    ///Switchbutton()
+    //Spinkit()
+     //Switchbutton()
     //HideAndSeak()
     //HomeScreen()
     );
