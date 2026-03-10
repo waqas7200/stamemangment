@@ -129,77 +129,203 @@
 // }
 
 
-//--->
-import 'package:firebase_auth/firebase_auth.dart';
+//=========================================================>
+
+// import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:flutter/material.dart';
+// import 'package:get/get.dart';
+// import 'package:statemanagment/view/utills/error_messages/snackbars-.dart';
+// import 'package:statemanagment/view/utills/exceptions/firebase-auth-exception.dart';
+// import '../../view/source/routes/routes_screen.dart';
+// // Apni exception file ko yahan import karein
+// // import 'path_to_your_exception_file/firebase_exceptions.dart';
+//
+// class AuthController extends GetxController {
+//   TextEditingController emailcontroller = TextEditingController();
+//   TextEditingController passwordcontroller = TextEditingController();
+//
+//   var isloading = false.obs;
+//
+//   // Global Snackbar Method (Code repeat na karne ke liye)
+//   void showErrorSnackbar(String message) {
+//     Get.snackbar(
+//       'Auth Error',
+//       message,
+//       snackPosition: SnackPosition.BOTTOM,
+//       backgroundColor: Colors.redAccent,
+//       colorText: Colors.white,
+//       margin: const EdgeInsets.all(10),
+//     );
+//   }
+//
+//   SignUp() async {
+//     try {
+//       isloading.value = true;
+//       await FirebaseAuth.instance.createUserWithEmailAndPassword(
+//         email: emailcontroller.text.trim(),
+//         password: passwordcontroller.text.trim(),
+//       );
+//       Get.snackbar('Success', 'Account successfully created');
+//       Get.offAllNamed(AppsRoutes.homeScreen);
+//     } catch (e) {
+//       // Yahan global class use ho rahi hai
+//       String errorMessage = FirebaseExceptionHandler.getErrorMessage(e);
+//       showErrorSnackbar(errorMessage);
+//     } finally {
+//       isloading.value = false;
+//     }
+//   }
+//
+//   Login() async {
+//     try {
+//       if(emailcontroller.text=='' || passwordcontroller.text=='')
+//         return AppSnackBar.shoeWarningSnackbar('Watning', 'Please fill all the fileds');
+//       isloading.value = true;
+//       await FirebaseAuth.instance.signInWithEmailAndPassword(
+//         email: emailcontroller.text.trim(),
+//         password: passwordcontroller.text.trim(),
+//       );
+//       AppSnackBar.shoeSuccessSnackbar('Success', 'Login successfully');
+//       //Get.snackbar('Success', 'Login Successful');
+//       Get.offAllNamed(AppsRoutes.homeScreen);
+//     } catch (e) {
+//       // Yahan bhi wahi global logic
+//       String errorMessage = FirebaseExceptionHandler.getErrorMessage(e);
+//       showErrorSnackbar(errorMessage);
+//     } finally {
+//       isloading.value = false;
+//     }
+//   }
+//
+//   @override
+//   void onClose() {
+//     emailcontroller.dispose(); // clear ki jagah dispose zyada behtar hai
+//     passwordcontroller.dispose();
+//     super.onClose();
+//   }
+// }
+
+
+//===========================================>
+
+
+// import 'package:flutter/material.dart';
+// import 'package:get/get.dart';
+// import 'package:statemanagment/data/services/auth-services.dart';
+// import 'package:statemanagment/view/utills/error_messages/snackbars-.dart';
+// import 'package:statemanagment/view/utills/exceptions/firebase-auth-exception.dart';
+// import '../../view/source/routes/routes_screen.dart';
+//
+// class AuthController extends GetxController {
+//   // Service ka instance
+//   final AuthService _authService = AuthService();
+//
+//   final emailController = TextEditingController();
+//   final passwordController = TextEditingController();
+//
+//   var isLoading = false.obs;
+//
+//   // Sign Up Method
+//   Future<void> signUp() async {
+//     if (_validateInputs()) {
+//       try {
+//         isLoading.value = true;
+//         await _authService.signUp(
+//           emailController.text.trim(),
+//           passwordController.text.trim(),
+//         );
+//         AppSnackBar.shoeSuccessSnackbar('Success', 'Account successfully created');
+//         Get.offAllNamed(AppsRoutes.homeScreen);
+//       } catch (e) {
+//         String errorMessage = FirebaseExceptionHandler.getErrorMessage(e);
+//         _showErrorSnackbar(errorMessage);
+//       } finally {
+//         isLoading.value = false;
+//       }
+//     }
+//   }
+//
+//   // Login Method
+//   Future<void> login() async {
+//     if (_validateInputs()) {
+//       try {
+//         isLoading.value = true;
+//         await _authService.login(
+//           emailController.text.trim(),
+//           passwordController.text.trim(),
+//         );
+//         AppSnackBar.shoeSuccessSnackbar('Success', 'Login successfully');
+//         Get.offAllNamed(AppsRoutes.homeScreen);
+//       } catch (e) {
+//         String errorMessage = FirebaseExceptionHandler.getErrorMessage(e);
+//         _showErrorSnackbar(errorMessage);
+//       } finally {
+//         isLoading.value = false;
+//       }
+//     }
+//   }
+//
+//   // Validation Logic
+//   bool _validateInputs() {
+//     if (emailController.text.isEmpty || passwordController.text.isEmpty) {
+//       AppSnackBar.shoeWarningSnackbar('Warning', 'Please fill all the fields');
+//       return false;
+//     }
+//     return true;
+//   }
+//
+//   // Private Snackbar helper
+//   void _showErrorSnackbar(String message) {
+//     Get.snackbar(
+//       'Auth Error',
+//       message,
+//       snackPosition: SnackPosition.BOTTOM,
+//       backgroundColor: Colors.redAccent,
+//       colorText: Colors.white,
+//     );
+//   }
+//
+//   @override
+//   void onClose() {
+//     emailController.dispose();
+//     passwordController.dispose();
+//     super.onClose();
+//   }
+// }
+
+
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:statemanagment/view/utills/error_messages/snackbars-.dart';
-import 'package:statemanagment/view/utills/exceptions/firebase-auth-exception.dart';
-import '../../view/source/routes/routes_screen.dart';
-// Apni exception file ko yahan import karein
-// import 'path_to_your_exception_file/firebase_exceptions.dart';
+import 'package:statemanagment/data/services/auth-services.dart';
 
-class AuthController extends GetxController {
-  TextEditingController emailcontroller = TextEditingController();
-  TextEditingController passwordcontroller = TextEditingController();
+import '../../data/services/auth_service/auth_service_.dart';
 
-  var isloading = false.obs;
+class AuthController extends GetxController{
+ final AuthService _authService=AuthService();
 
-  // Global Snackbar Method (Code repeat na karne ke liye)
-  void showErrorSnackbar(String message) {
-    Get.snackbar(
-      'Auth Error',
-      message,
-      snackPosition: SnackPosition.BOTTOM,
-      backgroundColor: Colors.redAccent,
-      colorText: Colors.white,
-      margin: const EdgeInsets.all(10),
-    );
-  }
+ final emai=TextEditingController();
+ final password=TextEditingController();
+ var loading=false.obs;
 
-  SignUp() async {
-    try {
-      isloading.value = true;
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: emailcontroller.text.trim(),
-        password: passwordcontroller.text.trim(),
-      );
-      Get.snackbar('Success', 'Account successfully created');
-      Get.offAllNamed(AppsRoutes.homeScreen);
-    } catch (e) {
-      // Yahan global class use ho rahi hai
-      String errorMessage = FirebaseExceptionHandler.getErrorMessage(e);
-      showErrorSnackbar(errorMessage);
-    } finally {
-      isloading.value = false;
+  Future<void>login()async{
+    loading.value=true;
+    try{
+     await _authService.SignIn(emai.text,password.text);
+    }catch(e){
+     Get.snackbar('errro', 'sdkfcknKJ.DNX.KZSN');
+    }
+    finally{
+      loading.value=false;
     }
   }
 
-  Login() async {
-    try {
-      if(emailcontroller.text=='' || passwordcontroller.text=='')
-        return AppSnackBar.shoeWarningSnackbar('Watning', 'Please fill all the fileds');
-      isloading.value = true;
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: emailcontroller.text.trim(),
-        password: passwordcontroller.text.trim(),
-      );
-      AppSnackBar.shoeSuccessSnackbar('Success', 'Login successfully');
-      //Get.snackbar('Success', 'Login Successful');
-      Get.offAllNamed(AppsRoutes.homeScreen);
-    } catch (e) {
-      // Yahan bhi wahi global logic
-      String errorMessage = FirebaseExceptionHandler.getErrorMessage(e);
-      showErrorSnackbar(errorMessage);
-    } finally {
-      isloading.value = false;
-    }
-  }
+  Future<void>signup()async{
+    try{
 
-  @override
-  void onClose() {
-    emailcontroller.dispose(); // clear ki jagah dispose zyada behtar hai
-    passwordcontroller.dispose();
-    super.onClose();
+    }catch(e){
+      
+    }
+
   }
 }
