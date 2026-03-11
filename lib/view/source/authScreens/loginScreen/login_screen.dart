@@ -33,7 +33,7 @@ class LoginScreen extends StatelessWidget {
               padding: const EdgeInsets.only(top: 50,left: 40,right: 40),
               child: Center(
                 child: TextFormField(
-                  controller: authController.emailcontroller,
+                  controller: authController.emai,
                 decoration: InputDecoration(
                 hintText: 'Enter Email'
                 ),
@@ -43,7 +43,7 @@ class LoginScreen extends StatelessWidget {
               padding: const EdgeInsets.only(top: 20,left: 40,right: 40),
               child: Center(
                 child: TextFormField(
-                  controller: authController.passwordcontroller,
+                  controller: authController.password,
                   decoration: InputDecoration(
                       hintText: 'Password'
                       ),
@@ -53,10 +53,10 @@ class LoginScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(top: 50),
               child: Center(child:
-              Obx(()=>authController.isloading.value?SpinKitCircle(color: Colors.red,):
+              Obx(()=>authController.loading.value?SpinKitCircle(color: Colors.red,):
               ElevatedButton(onPressed: (){
-                authController.Login();
-        
+                authController.login();
+                Get.toNamed(AppsRoutes.homeScreen);
               },
                 child: Text('Login'), ))
                 ,),
@@ -65,7 +65,7 @@ class LoginScreen extends StatelessWidget {
               children: [
               Text('Already Have an Account?',style: TextStyle(color: Colors.black),),
               Center(child:
-              Obx(()=>authController.isloading.value?SpinKitCircle(
+              Obx(()=>authController.loading.value?SpinKitCircle(
                 color: Colors.red,):
                           TextButton(onPressed: (){
                             Get.toNamed(AppsRoutes.signUpScreen);

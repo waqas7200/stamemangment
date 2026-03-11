@@ -298,6 +298,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:statemanagment/data/services/auth-services.dart';
+import 'package:statemanagment/model/userprofile_model/UUserProfile_model.dart';
 
 import '../../data/services/auth_service/auth_service_.dart';
 
@@ -306,13 +307,22 @@ class AuthController extends GetxController{
 
  final emai=TextEditingController();
  final password=TextEditingController();
+ final namecontroller=TextEditingController();
+ final phoneconntroller=TextEditingController();
  var loading=false.obs;
 
   Future<void>login()async{
     loading.value=true;
     try{
-     await _authService.SignIn(emai.text,password.text);
-    }catch(e){
+    var user= await _authService.SignIn(emai.text,password.text);
+     if (user != null) {
+       Get.snackbar('Success', 'Login Successful');
+       // Get.offAllNamed(AppsRoutes.homeScreen); // Home screen par bhein
+     } else {
+       Get.snackbar('Failed', 'Invalid email or password');
+     }
+    }
+    catch(e){
      Get.snackbar('errro', 'sdkfcknKJ.DNX.KZSN');
     }
     finally{
@@ -321,10 +331,31 @@ class AuthController extends GetxController{
   }
 
   Future<void>signup()async{
+    if(
+    emai.text.isEmpty||
+        password.text.isEmpty||
+        phoneconntroller.text.isEmpty||
+        namecontroller.text.isEmpty){
+      Get.snackbar('Error', 'Please fill all fields');
+      return;
+    }
+    loading.value = true;
     try{
+      UserprofileModel?result=await _authService.SignUP(
+        emai.text.trim(),
+        password.text.trim(),
+        namecontroller.text.trim(),
+        phoneconntroller.text.trim(),
+      );
+      if (result != null) {
+        Get.snackbar('Success', 'Account Created for ${result.name}');
+        // Get.offAllNamed(AppsRoutes.homeScreen);
+      }
 
-    }catch(e){
-      
+    }catch (e) {
+      Get.snackbar('Signup Error', e.toString());
+    } finally {
+      loading.value = false;
     }
 
   }
